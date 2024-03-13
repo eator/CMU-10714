@@ -6,8 +6,9 @@ import mugrade
 from simple_ml import *
 try:
     from simple_ml_ext import *
-except:
-    pass
+except Exception as e:
+    print("An error occurred while importing simple_ml_ext module:")
+    print(e)
 
 
 ##############################################################################
@@ -88,6 +89,8 @@ def test_softmax_regression_epoch():
     Theta = np.zeros((5,3), dtype=np.float32)
     dTheta = -nd.Gradient(lambda Th : softmax_loss(X@Th.reshape(5,3),y))(Theta)
     softmax_regression_epoch(X,y,Theta,lr=1.0,batch=50)
+    #print(Theta)
+    #print(dTheta)
     np.testing.assert_allclose(dTheta.reshape(5,3), Theta, rtol=1e-4, atol=1e-4)
 
 
